@@ -2,7 +2,7 @@
 // @name        EVBE - Extended vBulletin Editor
 // @namespace   elitepvpers
 // @include     http://www.elitepvpers.com/forum/*
-// @author      Kentika
+// @author      Kentika, Mostey
 // @grant       none
 // @description Extended vBulletin Editor
 // ==/UserScript==
@@ -13,4 +13,5 @@ function addScript(script) {
     scr.src = script;
     document.getElementsByTagName('head')[0].appendChild(scr);
 }
-addScript('http://localhost/EVBE/Bootstrap.js');
+
+addScript('https://raw.githubusercontent.com/elitepvpers-community/smile/master/Bootstrap.js');
