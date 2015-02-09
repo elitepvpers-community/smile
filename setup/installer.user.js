@@ -14,4 +14,4 @@ function addScript(script) {
     document.getElementsByTagName('head')[0].appendChild(scr);
 }
 
-addScript('https://raw.githubusercontent.com/elitepvpers-community/smile/master/Bootstrap.js');
+addScript('https://rawgit.com/elitepvpers-community/smile/requirejs/scripts/main.js');

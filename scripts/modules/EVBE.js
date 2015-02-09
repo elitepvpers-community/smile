@@ -13,7 +13,9 @@ var EVBE = {
         if (smiles === null) {
             EVBE.addStandardSmiles();
             smiles = localStorage.getItem('EVBE_Smiles');
-        } else if(settings === null) {
+        }  
+
+        if(settings === null) {
             EVBE.addStandardSettings();
             settings = localStorage.getItem('EVBE_Settings');
         }
@@ -25,11 +27,11 @@ var EVBE = {
     },
     addStandardSmiles: function() {
         var standards = [
-            ['Halloween', Bootstrap.config.stableBranchUrl + 'images/1.gif'],
-            ['Weihnachten', Bootstrap.config.stableBranchUrl + 'images/2.gif'],
-            ['Blaues Auge', Bootstrap.config.stableBranchUrl + 'images/3.gif'],
-            ['Katze', Bootstrap.config.stableBranchUrl + 'images/4.gif'],
-            ['S&uuml;&szlig;es Ding', Bootstrap.config.stableBranchUrl + 'images/5.gif']
+            ['Halloween', Bootstrap.config.remoteUrl + 'images/1.gif'],
+            ['Weihnachten', Bootstrap.config.remoteUrl + 'images/2.gif'],
+            ['Blaues Auge', Bootstrap.config.remoteUrl + 'images/3.gif'],
+            ['Katze', Bootstrap.config.remoteUrl + 'images/4.gif'],
+            ['S&uuml;&szlig;es Ding', Bootstrap.config.remoteUrl + 'images/5.gif']
         ];
 
         localStorage.setItem('EVBE_Smiles', JSON.stringify(standards));
