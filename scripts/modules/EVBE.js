@@ -13,7 +13,9 @@ var EVBE = {
         if (smiles === null) {
             EVBE.addStandardSmiles();
             smiles = localStorage.getItem('EVBE_Smiles');
-        } else if(settings === null) {
+        }  
+
+        if(settings === null) {
             EVBE.addStandardSettings();
             settings = localStorage.getItem('EVBE_Settings');
         }
