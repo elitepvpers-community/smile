@@ -58,7 +58,7 @@ var GUI = {
                 '<br><br>' +
                 '<button class="button" id="EVBE_addSmiley"><i class="fa fa-save"></i> Smiley speichern</button>' +
                 '<br><br>' +
-                '<a href="http://www.elitepvpers.com/forum/elite-gold-trading/3536727-eshop-das-elite-gold-shopsystem-24-7-delivery-leicht-gemacht.html"><img src="' + Bootstrap.config.BASE + '/images/banner/1.png" width="100%" alt="Werbung"></a>' +
+                '<a href="http://www.elitepvpers.com/forum/elite-gold-trading/3536727-eshop-das-elite-gold-shopsystem-24-7-delivery-leicht-gemacht.html"><img src="' + Bootstrap.config.stableBranchUrl + '/images/banner/1.png" width="100%" alt="Werbung"></a>' +
             '</div>' +
             '</fieldset>');
             EVBE.addSmiley(); // triggers on click
