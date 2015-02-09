@@ -13,7 +13,9 @@ var GUI = {
             '<button class="button" id="EVBE_Edit"><i class="fa fa-edit"></i> Bearbeiten</button> ' +
             '<button class="button" id="EVBE_Ban"><i class="fa fa-ban"></i> Smileys leeren</button> ' +
             '<button class="button" id="EVBE_ImportExport"><i class="fa fa-exchange"></i> Import/Export</button>' +
-            '<span style="float: right; font-size: 10px;">Smile! - <a href="http://www.elitepvpers.com/forum/members/3880690-kentika.html">Kentika</a></span>' +
+            '<span style="float: right; font-size: 10px;">Smile! - ' +
+            '<a href="http://www.elitepvpers.com/forum/members/3880690-kentika.html">Kentika</a>, ' +
+            '<a href="http://www.elitepvpers.com/forum/members/467410-mostey.html">Mostey</a></span>' +
             '</fieldset>');
             EVBE.launchEditMode();
             EVBE.appendSmiles(false);
