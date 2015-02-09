@@ -1,10 +1,4 @@
 var GUI = {
-    init: function() {
-        EVBE.init();
-        
-        // Launch our UI
-        GUI.createUI();
-    },
     createUI: function() {
         var settings = JSON.parse(localStorage.getItem('EVBE_Settings')); // settings var
         
