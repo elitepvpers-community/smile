@@ -45,7 +45,7 @@ var EVBE = {
                 $('#EVBE_Smileys').append('<div style="display: inline-block;"><img src="' + this[1] + '" title="' + this[0] + '" height="32px" width="32px" style="padding-right: 10px; cursor: pointer;" onclick="$(\'textarea[name=message]\').val($(\'textarea[name=message]\').val() + \'[IMG]' + this[1] + '[/IMG]\');"></div>');
             } else {
                 $('#EVBE_Edit').addClass('editmode');
-                $('#EVBE_Smileys').append('<div style="display: inline-block;"><div style="position: absolute; z-index: 1; color: red; cursor: pointer;" onclick="EVBE.deleteSmile(\'' + this[0] + '\', \'' + this[1] + '\');"><i class="fa fa-ban"></i></div><img src="' + this[1] + '" title="' + this[0] + '" height="32px" width="32px" style="padding-right: 10px;"></div>');
+                $('#EVBE_Smileys').append('<div style="display: inline-block;"><div style="position: relative; z-index: 1; left: 1px; color: red; cursor: pointer;" onclick="EVBE.deleteSmile(\'' + this[0] + '\', \'' + this[1] + '\');"><i class="fa fa-ban"></i></div><img src="' + this[1] + '" title="' + this[0] + '" height="32px" width="32px" style="top: -12px; position: relative; padding-right: 10px;"></div>');
             }
         });
         return;
