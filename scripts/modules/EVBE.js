@@ -47,7 +47,7 @@ var EVBE = {
                 $('#EVBE_Smileys').append('<div style="display: inline-block;"><img src="' + this.url + '" title="' + this.title + '" height="32px" width="32px" style="padding-right: 10px; cursor: pointer;" onclick="EVBE.insertSmiley(\'' + this.url + '\', $(\'textarea[name=message]\'));"></div>');
             } else {
                 $('#EVBE_Edit').addClass('editmode');
-                $('#EVBE_Smileys').append('<div style="display: inline-block;"><div style="position: relative; z-index: 1; left: 1px; color: red; cursor: pointer;" onclick="EVBE.deleteSmile(\'' + this.title + '\', \'' + this.url + '\');"><i class="fa fa-ban"></i></div><img src="' + this.url + '" title="' + this.title + '" height="32px" width="32px" style="top: -11px; position: relative; padding-right: 10px;"></div>');
+                $('#EVBE_Smileys').append('<div style="display: inline-block;"><div style="position: relative; z-index: 1; left: 1px; color: red; cursor: pointer;" onclick="EVBE.deleteSmile(\'' + this.url + '\');"><i class="fa fa-ban"></i></div><img src="' + this.url + '" title="' + this.title + '" height="32px" width="32px" style="top: -11px; position: relative; padding-right: 10px;"></div>');
             }
         });
         return;
@@ -112,13 +112,10 @@ var EVBE = {
         });
     },
     deleteSmiles: function() {
-        $('#EVBE_Delete').click(function(e) {
-            e.preventDefault();
-            var smileyCollection = new SmileyCollection();
-            smileyCollection.serialize('EVBE_Smiles');
-            EVBE.clearSmilies();
-            EVBE.appendSmiles(false);
-        });
+        var smileyCollection = new SmileyCollection();
+        smileyCollection.serialize('EVBE_Smiles');
+        EVBE.clearSmilies();
+        EVBE.appendSmiles(false);
     },
     deleteSmile: function(link) {
         var smileyCollection = SmileyCollection.deserialize('EVBE_Smiles');
@@ -157,10 +154,10 @@ var EVBE = {
         return;
     },
     generateExportCode: function() {
-        var smileyCollection = JSON.parse(SmileyCollection.deserialize('EVBE_Smiles'));
+        var smileyCollection = SmileyCollection.deserialize('EVBE_Smiles');
         var exportCode = "";
         
-        $(smileyCollection.smiles).each(function() {
+        $(smileyCollection.smilies).each(function() {
             exportCode = (exportCode.length > 1 ? (exportCode + '{s_n}' + (this.title + '{s_x}' + this.url)) : (exportCode + (this.title + '{s_x}' + this.url)));
         });
         exportCode = btoa(exportCode);
@@ -176,10 +173,11 @@ var EVBE = {
         $(importCode.split('{s_n}')).each(function() {
            l = this.split('{s_x}');
            if(!EVBE.smileyExist(l[0], l[1])) {
-                smileyCollection.smiles.push(new Smiley([l[0], l[1]]));
+                smileyCollection.smilies.push(new Smiley(l[0], l[1], ""));
             }
         });
         $('#EVBE_Import_Container').val('');
+        console.log(smileyCollection.smilies);
         smileyCollection.serialize('EVBE_Smiles');
         EVBE.clearSmilies();
         EVBE.appendSmiles(false);
