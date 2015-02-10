@@ -10,7 +10,7 @@ var EVBE = {
     init: function() {
         var smileyCollection = SmileyCollection.deserialize('EVBE_Smiles');
         var settings = localStorage.getItem('EVBE_Settings');
-        if (smileyCollection.smilies === null) {
+        if (smileyCollection.smilies.length == 0) {
             EVBE.addStandardSmiles();
         }  
 
@@ -40,8 +40,8 @@ var EVBE = {
         return;
     },
     appendSmiles: function(editmode) {
-        var smiles = SmileyCollection.deserialize('EVBE_Smiles');
-        $(smiles).each(function() {
+        var smileyCollection = SmileyCollection.deserialize('EVBE_Smiles');
+        $(smileyCollection.smilies).each(function() {
             if (!editmode) {
                 $('#EVBE_Edit').removeClass('editmode');
                 $('#EVBE_Smileys').append('<div style="display: inline-block;"><img src="' + this.url + '" title="' + this.title + '" height="32px" width="32px" style="padding-right: 10px; cursor: pointer;" onclick="$(\'textarea[name=message]\').val($(\'textarea[name=message]\').val() + \'[IMG]' + this.url + '[/IMG]\');"></div>');
