@@ -19,6 +19,8 @@ var EVBE = {
             EVBE.addStandardSettings();
             settings = localStorage.getItem('EVBE_Settings');
         }
+
+        EVBE.placeHooks()
     },
     addStandardSettings: function() {
         var settings = {'showSmileyControl': true};
@@ -186,5 +188,20 @@ var EVBE = {
         
         EVBE.clearSmilies();
         EVBE.appendSmiles(false);
+    }, 
+    // place hooks required for detecting smiley triggers
+    placeHooks: function() 
+    {
+        $("#qr_submit").click(function(e) 
+        {
+            var editorContent = $("#vB_Editor_QR_textarea").val();
+            var smilies = JSON.parse(localStorage.getItem("EVBE_Smiles"));
+
+            smilies.forEach(function(smiley)
+            {
+                // 0 - title, 1 - link
+                //editorContent.replace("-trigger-")  
+            })  
+        });
     }
 };
