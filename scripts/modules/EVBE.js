@@ -71,7 +71,7 @@ var EVBE = {
         var smiles = JSON.parse(localStorage.getItem('EVBE_Smiles'));
         result = false;
         $(smiles).each(function() {
-            if(this[1] === link || this[0] === title) {
+            if(this[1] === link || this[0] === title) { 
                 result = true;
             }
         });
