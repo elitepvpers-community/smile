@@ -12,15 +12,17 @@ var Bootstrap = {
 
             Bootstrap.loadStylesheet('//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css');
             Bootstrap.loadStylesheet(remoteScriptsUrl + '/lib/jquery-ui/jquery-ui.min.css');
-            require(["lib/jquery-ui/external/jquery/jquery", 
-                     "lib/jquery-ui/jquery-ui", 
-                     "modules/EVBE",
-                     "modules/GUI",
-                     "modules/Smiley"], function(jq, jqueryUI, evbe, gui, smiley) 
+            require(["lib/jquery-ui/external/jquery/jquery"], function($) 
             {
-                EVBE.init();
-                GUI.createUI();
-            });
+                require(["lib/jquery-ui/jquery-ui", 
+                         "modules/EVBE",
+                         "modules/GUI",
+                         "modules/Smiley"], function(jqueryUI, evbe, gui, smiley) 
+                {
+                    EVBE.init();
+                    GUI.createUI();
+                });
+            });         
         })   
         
     },
