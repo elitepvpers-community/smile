@@ -172,8 +172,7 @@ var EVBE = {
         }
         var smileyCollection = SmileyCollection.deserialize('EVBE_Smiles');
         $(importCode.split('{s_n}')).each(function() {
-           l = this.split('{s_x}')
-           console.log(l)
+           l = this.split('{s_x}');
            if(!EVBE.smileyExist(l[0], l[1])) {
                 smileyCollection.smilies.push(new Smiley(l[0], l[1], l[2]));
             }
@@ -218,8 +217,13 @@ var EVBE = {
             smileyCollection.smilies.forEach(function(smiley)
             { 
                 if(smiley.trigger)
-                    // insert an extra whitespace for productivity ;)
-                    $(editorTextarea).val(editorContent.replace(smiley.trigger, EVBE.getBBCode(smiley) + " ")); 
+                {
+                    if(editorContent.indexOf(smiley.trigger) > -1)
+                    {
+                        // insert an extra whitespace for productivity ;)
+                        $(editorTextarea).val(editorContent.replace(smiley.trigger, EVBE.getBBCode(smiley) + " ")); 
+                    }
+                }
             })  
         });
     }
