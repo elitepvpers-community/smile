@@ -120,12 +120,12 @@ var EVBE = {
             EVBE.appendSmiles(false);
         });
     },
-    deleteSmile: function(title, link) {
+    deleteSmile: function(link) {
         var smileyCollection = SmileyCollection.deserialize('EVBE_Smiles');
         var key = 0;
-        $(smileyCollection.smiles).each(function() {
+        $(smileyCollection.smilies).each(function() {
             if (this.url === link) {
-                smileyCollection.remove(key);
+                smileyCollection.smilies.remove(key);
                 smileyCollection.serialize('EVBE_Smiles');
                 EVBE.clearSmilies();
                 EVBE.appendSmiles(true);
