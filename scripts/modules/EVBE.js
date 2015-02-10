@@ -158,7 +158,7 @@ var EVBE = {
         var exportCode = "";
         
         $(smileyCollection.smilies).each(function() {
-            exportCode = (exportCode.length > 1 ? (exportCode + '{s_n}' + (this.title + '{s_x}' + this.url)) : (exportCode + (this.title + '{s_x}' + this.url)));
+            exportCode = (exportCode.length > 1 ? (exportCode + '{s_n}' + (this.title + '{s_x}' + this.url + '{s_x}' + this.trigger)) : (exportCode + (this.title + '{s_x}' + this.url + '{s_x}' + this.trigger)));
         });
         exportCode = btoa(exportCode);
         $('#EVBE_Export_Container').val(exportCode);
@@ -166,14 +166,16 @@ var EVBE = {
     },
     startImport: function() {
         var importCode = atob($('#EVBE_Import_Container').val());
+        console.log(importCode)
         if(importCode === "") {
             return;
         }
         var smileyCollection = SmileyCollection.deserialize('EVBE_Smiles');
         $(importCode.split('{s_n}')).each(function() {
-           l = this.split('{s_x}');
+           l = this.split('{s_x}')
+           console.log(l)
            if(!EVBE.smileyExist(l[0], l[1])) {
-                smileyCollection.smilies.push(new Smiley(l[0], l[1], ""));
+                smileyCollection.smilies.push(new Smiley(l[0], l[1], l[2]));
             }
         });
         $('#EVBE_Import_Container').val('');
