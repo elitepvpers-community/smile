@@ -76,9 +76,9 @@ var EVBE = {
         $('#EVBE_Smileys').html('');
     },
     smileyExist: function(title, link) {
-        var smiles = SmileyCollection.deserialize('EVBE_Smiles');
+        var smileyCollection = SmileyCollection.deserialize('EVBE_Smiles');
         result = false;
-        $(smiles).each(function() {
+        $(smileyCollection.smilies).each(function() {
             if(this.url === link || this.title === title) { 
                 result = true;
             }
