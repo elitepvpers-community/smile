@@ -90,17 +90,21 @@ var EVBE = {
         $('#EVBE_addSmiley').click(function(e) {
             e.preventDefault();
 
-            if ($('input[name=EVBE_Smiley_Title]').val() === "" || $('input[name=EVBE_Smiley_Link]').val() === "" || EVBE.smileyExist($('input[name=EVBE_Smiley_Title]').val(), $('input[name=EVBE_Smiley_Link]').val())) {
+            if ($('input[name=EVBE_Smiley_Title]').val() === "" 
+                || $('input[name=EVBE_Smiley_Link]').val() === "" 
+                || $('input[name=EVBE_Smiley_Trigger]').val() === ""
+                || EVBE.smileyExist($('input[name=EVBE_Smiley_Title]').val(), $('input[name=EVBE_Smiley_Link]').val())) {
                 return;
             }
 
             var smileyCollection = SmileyCollection.deserialize('EVBE_Smiles');
-            smileyCollection.smilies.push(new Smiley($('input[name=EVBE_Smiley_Title]').val(), $('input[name=EVBE_Smiley_Link]').val()));
+            smileyCollection.smilies.push(new Smiley($('input[name=EVBE_Smiley_Title]').val(), $('input[name=EVBE_Smiley_Link]').val(), $('input[name=EVBE_Smiley_Trigger]').val()));
             smileyCollection.serialize('EVBE_Smiles');
 
             // clear inputs
             $('input[name=EVBE_Smiley_Title]').val('');
             $('input[name=EVBE_Smiley_Link').val('');
+            $('input[name=EVBE_Smiley_Trigger').val('');
 
             EVBE.clearSmilies();
             EVBE.appendSmiles(false);

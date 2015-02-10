@@ -52,6 +52,9 @@ var GUI = {
                 '<label><i class="fa fa-image"></i> Bild-URL:</label>' + 
                 '<input type="text" name="EVBE_Smiley_Link" style="width: 99%;" placeholder="Bild-URL">' +
                 '<br><br>' +
+                '<label><i class="fa fa-file-text-o"></i> Auslöser:</i></label>' +
+                '<input type="text" name="EVBE_Smiley_Trigger" style="width: 99%;" placeholder="Text der durch den Smiley ersetzt wird">' +
+                '<br><br>' +
                 '<button class="button" id="EVBE_addSmiley"><i class="fa fa-save"></i> Smiley speichern</button>' +
                 '<br><br>' +
                 '<a href="http://www.elitepvpers.com/forum/elite-gold-trading/3536727-eshop-das-elite-gold-shopsystem-24-7-delivery-leicht-gemacht.html"><img src="' + Bootstrap.config.remoteUrl + '/images/banner/1.png" width="100%" alt="Werbung"></a>' +
