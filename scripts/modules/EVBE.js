@@ -44,13 +44,21 @@ var EVBE = {
         $(smileyCollection.smilies).each(function() {
             if (!editmode) {
                 $('#EVBE_Edit').removeClass('editmode');
-                $('#EVBE_Smileys').append('<div style="display: inline-block;"><img src="' + this.url + '" title="' + this.title + '" height="32px" width="32px" style="padding-right: 10px; cursor: pointer;" onclick="$(\'textarea[name=message]\').val($(\'textarea[name=message]\').val() + \'[IMG]' + this.url + '[/IMG]\');"></div>');
+                $('#EVBE_Smileys').append('<div style="display: inline-block;"><img src="' + this.url + '" title="' + this.title + '" height="32px" width="32px" style="padding-right: 10px; cursor: pointer;" onclick="EVBE.insertSmiley(' + this + ', $(\'textarea[name=message]\'));"></div>');
             } else {
                 $('#EVBE_Edit').addClass('editmode');
                 $('#EVBE_Smileys').append('<div style="display: inline-block;"><div style="position: relative; z-index: 1; left: 1px; color: red; cursor: pointer;" onclick="EVBE.deleteSmile(\'' + this.title + '\', \'' + this.url + '\');"><i class="fa fa-ban"></i></div><img src="' + this.url + '" title="' + this.title + '" height="32px" width="32px" style="top: -11px; position: relative; padding-right: 10px;"></div>');
             }
         });
         return;
+    },
+    insertSmiley: function(smiley, target) 
+    {
+        $(target).val($(target).val() + EVBE.getBBCode(smiley));
+    },
+    getBBCode: function (smiley)
+    {
+        return "[IMG]" + smiley.url + "[/IMG]";
     },
     launchEditMode: function() {
         $('#EVBE_Edit').click(function(e) {
@@ -196,15 +204,18 @@ var EVBE = {
     // place hooks required for detecting smiley triggers
     placeHooks: function() 
     {
-        $("#qr_submit").click(function(e) 
+        var editorTextarea = $("#vB_Editor_QR_textarea");
+        // event is raised every time the content of the textarea is changed
+        $(editorTextarea).bind('input propertychange', function()
         {
-            var editorContent = $("#vB_Editor_QR_textarea").val();
-            var smilies = JSON.parse(localStorage.getItem("EVBE_Smiles"));
+            var editorContent = $(editorTextarea).val();
+            var smileyCollection = SmileyCollection.deserialize("EVBE_Smiles");
 
-            smilies.forEach(function(smiley)
-            {
-                // 0 - title, 1 - link
-                //editorContent.replace("-trigger-")  
+            smileyCollection.smilies.forEach(function(smiley)
+            { 
+                if(smiley.trigger)
+                    // insert an extra whitespace for productivity ;)
+                    $(editorTextarea).val(editorContent.replace(smiley.trigger, EVBE.getBBCode(smiley) + " ")); 
             })  
         });
     }
