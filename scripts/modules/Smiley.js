@@ -21,10 +21,14 @@ SmileyCollection.deserialize = function(key)
 	smileyArray = JSON.parse(localStorage.getItem(key));
 	collection = new SmileyCollection()
 	if(smileyArray === null) return collection;
-	
+
 	smileyArray.forEach(function(smiley)
 	{
-		collection.smilies.push(new Smiley(smiley.title, smiley.url, smiley.trigger))
+		var useLegacyMode = typeof smiley.title === "undefined" || typeof smiley.url === "undefined";
+		if(!useLegacyMode) 
+			collection.smilies.push(new Smiley(smiley.title, smiley.url, smiley.trigger))
+		else // migration
+			collection.smilies.push(new Smiley(smiley[0], smiley[1], ""))
 	})
 
 	return collection
