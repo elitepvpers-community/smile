@@ -129,7 +129,7 @@ var EVBE = {
         settings.showSmileyControl = false;
         localStorage.setItem('EVBE_Settings', JSON.stringify(settings));
         $('#EVBE_HideSmileyControl').remove();
-        $('#vB_Editor_QR').after('<div id="EVBE_ShowSmileyControl"><br><button class="button" onclick="event.preventDefault(); EVBE.showSmileyControl();" style="float: right;"><i class="fa fa-arrow-down"></i></button><br></div>');
+        $('.submit_button').append('<button class="button" onclick="event.preventDefault(); EVBE.showSmileyControl();" style="float: right; margin: 0px 5px"><i class="fa fa-arrow-down"></i> Smilies einblenden </button>');
         return;
     },
     showSmileyControl: function() {
@@ -138,7 +138,7 @@ var EVBE = {
         settings.showSmileyControl = true;
         localStorage.setItem('EVBE_Settings', JSON.stringify(settings));
         $('#EVBE_ShowSmileyControl').remove();
-        $('#vB_Editor_QR').after('<div id="EVBE_HideSmileyControl"><br><button class="button" onclick="event.preventDefault(); EVBE.hideSmileyControl();" style="float: right;"><i class="fa fa-arrow-up"></i></button><br></div>');
+        $('.submit_button').append('<button class="button" onclick="event.preventDefault(); EVBE.hideSmileyControl();" style="float: right; margin: 0px 5px"><i class="fa fa-arrow-up"></i> Smilies ausblenden </button>');
         return;
     },
     generateExportCode: function() {
