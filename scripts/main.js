@@ -4,19 +4,19 @@ var Bootstrap = {
     },
     init: function() { 
         var remoteScriptsUrl = Bootstrap.config.remoteUrl + "scripts";
-        requirejs.config({
-            baseUrl: remoteScriptsUrl
-        });
-
-        Bootstrap.loadScript(remoteScriptsUrl + 'require.js', function()
+        Bootstrap.loadScript(remoteScriptsUrl + '/require.js', function()
         {
+            requirejs.config({
+                baseUrl: remoteScriptsUrl
+            });
+
             Bootstrap.loadStylesheet('//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css');
             Bootstrap.loadStylesheet(remoteScriptsUrl + '/lib/jquery-ui/jquery-ui.min.css');
             require(["lib/jquery-ui/external/jquery/jquery", 
                      "lib/jquery-ui/jquery-ui", 
                      "modules/EVBE",
                      "modules/GUI",
-                     "modules/Smiley"], function($, $jqueryUI, $evbe, $gui, $smiley) 
+                     "modules/Smiley"], function(jq, jqueryUI, evbe, gui, smiley) 
             {
                 EVBE.init();
                 GUI.createUI();
