@@ -116,9 +116,9 @@ var GUI = {
             
             // Show Smiley Control settings
             if(!settings.showSmileyControl) {
-                $('#vB_Editor_QR').after('<div id="EVBE_ShowSmileyControl"><br><button class="button" onclick="event.preventDefault(); EVBE.showSmileyControl();" style="float: right;"><i class="fa fa-arrow-down"></i></button><br></div>');
+                EVBE.hideSmileyControl()
             } else {
-                $('#vB_Editor_QR').after('<div id="EVBE_HideSmileyControl"><br><button class="button" onclick="event.preventDefault(); EVBE.hideSmileyControl();" style="float: right;"><i class="fa fa-arrow-up"></i></button><br></div>');
+                EVBE.showSmileyControl()
             }
     }
 };
