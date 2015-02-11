@@ -5,6 +5,11 @@ Array.prototype.remove = function(from, to) {
     return this.push.apply(this, rest);
 };
 
+// Gracenotes - http://stackoverflow.com/questions/494035/how-do-you-pass-a-variable-to-a-regular-expression-javascript/494122#494122
+RegExp.escape = function(str) {
+    return (str+'').replace(/[.?*+^$[\]\\(){}|-]/g, "\\$&");
+};
+
 // EVBE
 var EVBE = {
     init: function() {
@@ -212,7 +217,6 @@ var EVBE = {
         // event is raised every time the content of the valid input element is changed
         $(validInputElements).bind('input propertychange', function()
         {
-            var content = $(this).val();
             var smileyCollection = SmileyCollection.deserialize("EVBE_Smiles");
 
             element = this;
@@ -220,11 +224,12 @@ var EVBE = {
             { 
                 if(smiley.trigger)
                 {
-                    if(content.indexOf(smiley.trigger) > -1)
-                    {
-                        // insert an extra whitespace for productivity ;)
-                        $(element).val(content.replace(smiley.trigger, EVBE.getBBCode(smiley) + " ")); 
-                    }
+                    var replacedContent = $(element).val().replace(new RegExp("(\\s+|^)+(" + smiley.trigger + ")(\\s+|$)"), function(full, before, trigger, after)
+                    { 
+                        return before + EVBE.getBBCode(smiley) + after;
+                    })
+
+                    $(element).val(replacedContent);
                 }
             })  
         });
