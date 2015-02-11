@@ -8,17 +8,18 @@ Array.prototype.remove = function(from, to) {
 // EVBE
 var EVBE = {
     init: function() {
-        var smiles = localStorage.getItem('EVBE_Smiles');
+        var smileyCollection = SmileyCollection.deserialize('EVBE_Smiles');
         var settings = localStorage.getItem('EVBE_Settings');
-        if (smiles === null) {
+        if (smileyCollection.smilies.length == 0) {
             EVBE.addStandardSmiles();
-            smiles = localStorage.getItem('EVBE_Smiles');
         }  
 
         if(settings === null) {
             EVBE.addStandardSettings();
             settings = localStorage.getItem('EVBE_Settings');
         }
+
+        EVBE.placeHooks()
     },
     addStandardSettings: function() {
         var settings = {'showSmileyControl': true};
@@ -27,28 +28,37 @@ var EVBE = {
     },
     addStandardSmiles: function() {
         var standards = [
-            ['Halloween', Bootstrap.config.remoteUrl + 'images/1.gif'],
-            ['Weihnachten', Bootstrap.config.remoteUrl + 'images/2.gif'],
-            ['Blaues Auge', Bootstrap.config.remoteUrl + 'images/3.gif'],
-            ['Katze', Bootstrap.config.remoteUrl + 'images/4.gif'],
-            ['S&uuml;&szlig;es Ding', Bootstrap.config.remoteUrl + 'images/5.gif']
+            new Smiley('Halloween', Bootstrap.config.remoteUrl + 'images/1.gif'),
+            new Smiley('Weihnachten', Bootstrap.config.remoteUrl + 'images/2.gif'),
+            new Smiley('Blaues Auge', Bootstrap.config.remoteUrl + 'images/3.gif'),
+            new Smiley('Katze', Bootstrap.config.remoteUrl + 'images/4.gif'),
+            new Smiley('S&uuml;&szlig;es Ding', Bootstrap.config.remoteUrl + 'images/5.gif')
         ];
 
-        localStorage.setItem('EVBE_Smiles', JSON.stringify(standards));
+        var smileyCollection = new SmileyCollection(standards)
+        smileyCollection.serialize('EVBE_Smiles');
         return;
     },
     appendSmiles: function(editmode) {
-        var smiles = JSON.parse(localStorage.getItem('EVBE_Smiles'));
-        $(smiles).each(function() {
+        var smileyCollection = SmileyCollection.deserialize('EVBE_Smiles');
+        $(smileyCollection.smilies).each(function() {
             if (!editmode) {
                 $('#EVBE_Edit').removeClass('editmode');
-                $('#EVBE_Smileys').append('<div style="display: inline-block;"><img src="' + this[1] + '" title="' + this[0] + '" height="32px" width="32px" style="padding-right: 10px; cursor: pointer;" onclick="$(\'textarea[name=message]\').val($(\'textarea[name=message]\').val() + \'[IMG]' + this[1] + '[/IMG]\');"></div>');
+                $('#EVBE_Smileys').append('<div style="display: inline-block;"><img src="' + this.url + '" title="' + this.title + '" height="32px" width="32px" style="padding-right: 10px; cursor: pointer;" onclick="EVBE.insertSmiley(\'' + this.url + '\', $(\'textarea[name=message]\'));"></div>');
             } else {
                 $('#EVBE_Edit').addClass('editmode');
-                $('#EVBE_Smileys').append('<div style="display: inline-block;"><div style="position: relative; z-index: 1; left: 1px; color: red; cursor: pointer;" onclick="EVBE.deleteSmile(\'' + this[0] + '\', \'' + this[1] + '\');"><i class="fa fa-ban"></i></div><img src="' + this[1] + '" title="' + this[0] + '" height="32px" width="32px" style="top: -11px; position: relative; padding-right: 10px;"></div>');
+                $('#EVBE_Smileys').append('<div style="display: inline-block;"><div style="position: relative; z-index: 1; left: 1px; color: red; cursor: pointer;" onclick="EVBE.deleteSmile(\'' + this.url + '\');"><i class="fa fa-ban"></i></div><img src="' + this.url + '" title="' + this.title + '" height="32px" width="32px" style="top: -11px; position: relative; padding-right: 10px;"></div>');
             }
         });
         return;
+    },
+    insertSmiley: function(url, target) 
+    {
+        $(target).val($(target).val() + EVBE.getBBCode(new Smiley("", url)));
+    },
+    getBBCode: function (smiley)
+    {
+        return "[IMG]" + smiley.url + "[/IMG]";
     },
     launchEditMode: function() {
         $('#EVBE_Edit').click(function(e) {
@@ -66,10 +76,10 @@ var EVBE = {
         $('#EVBE_Smileys').html('');
     },
     smileyExist: function(title, link) {
-        var smiles = JSON.parse(localStorage.getItem('EVBE_Smiles'));
+        var smileyCollection = SmileyCollection.deserialize('EVBE_Smiles');
         result = false;
-        $(smiles).each(function() {
-            if(this[1] === link || this[0] === title) {
+        $(smileyCollection.smilies).each(function() {
+            if(this.url === link || this.title === title) { 
                 result = true;
             }
         });
@@ -80,17 +90,21 @@ var EVBE = {
         $('#EVBE_addSmiley').click(function(e) {
             e.preventDefault();
 
-            if ($('input[name=EVBE_Smiley_Title]').val() === "" || $('input[name=EVBE_Smiley_Link]').val() === "" || EVBE.smileyExist($('input[name=EVBE_Smiley_Title]').val(), $('input[name=EVBE_Smiley_Link]').val())) {
+            if ($('input[name=EVBE_Smiley_Title]').val() === "" 
+                || $('input[name=EVBE_Smiley_Link]').val() === "" 
+                || $('input[name=EVBE_Smiley_Trigger]').val() === ""
+                || EVBE.smileyExist($('input[name=EVBE_Smiley_Title]').val(), $('input[name=EVBE_Smiley_Link]').val())) {
                 return;
             }
 
-            var smiles = JSON.parse(localStorage.getItem('EVBE_Smiles'));
-            smiles.push([$('input[name=EVBE_Smiley_Title]').val(), $('input[name=EVBE_Smiley_Link]').val()]);
-            localStorage.setItem('EVBE_Smiles', JSON.stringify(smiles));
+            var smileyCollection = SmileyCollection.deserialize('EVBE_Smiles');
+            smileyCollection.smilies.push(new Smiley($('input[name=EVBE_Smiley_Title]').val(), $('input[name=EVBE_Smiley_Link]').val(), $('input[name=EVBE_Smiley_Trigger]').val()));
+            smileyCollection.serialize('EVBE_Smiles');
 
             // clear inputs
             $('input[name=EVBE_Smiley_Title]').val('');
             $('input[name=EVBE_Smiley_Link').val('');
+            $('input[name=EVBE_Smiley_Trigger').val('');
 
             EVBE.clearSmilies();
             EVBE.appendSmiles(false);
@@ -98,20 +112,18 @@ var EVBE = {
         });
     },
     deleteSmiles: function() {
-        $('#EVBE_Delete').click(function(e) {
-            e.preventDefault();
-			localStorage.setItem('EVBE_Smiles', "[]");
-            EVBE.clearSmilies();
-            EVBE.appendSmiles(false);
-        });
+        var smileyCollection = new SmileyCollection();
+        smileyCollection.serialize('EVBE_Smiles');
+        EVBE.clearSmilies();
+        EVBE.appendSmiles(false);
     },
-    deleteSmile: function(title, link) {
-        var smiles = JSON.parse(localStorage.getItem('EVBE_Smiles'));
+    deleteSmile: function(link) {
+        var smileyCollection = SmileyCollection.deserialize('EVBE_Smiles');
         var key = 0;
-        $(smiles).each(function() {
-            if (this[1] === link) {
-                smiles.remove(key);
-                localStorage.setItem('EVBE_Smiles', JSON.stringify(smiles));
+        $(smileyCollection.smilies).each(function() {
+            if (this.url === link) {
+                smileyCollection.smilies.remove(key);
+                smileyCollection.serialize('EVBE_Smiles');
                 EVBE.clearSmilies();
                 EVBE.appendSmiles(true);
                 return;
@@ -142,11 +154,11 @@ var EVBE = {
         return;
     },
     generateExportCode: function() {
-        var smiles = JSON.parse(localStorage.getItem('EVBE_Smiles'));
+        var smileyCollection = SmileyCollection.deserialize('EVBE_Smiles');
         var exportCode = "";
         
-        $(smiles).each(function() {
-            exportCode = (exportCode.length > 1 ? (exportCode + '{s_n}' + (this[0] + '{s_x}' + this[1])) : (exportCode + (this[0] + '{s_x}' + this[1])));
+        $(smileyCollection.smilies).each(function() {
+            exportCode = (exportCode.length > 1 ? (exportCode + '{s_n}' + (this.title + '{s_x}' + this.url + '{s_x}' + this.trigger)) : (exportCode + (this.title + '{s_x}' + this.url + '{s_x}' + this.trigger)));
         });
         exportCode = btoa(exportCode);
         $('#EVBE_Export_Container').val(exportCode);
@@ -154,23 +166,27 @@ var EVBE = {
     },
     startImport: function() {
         var importCode = atob($('#EVBE_Import_Container').val());
+        console.log(importCode)
         if(importCode === "") {
             return;
         }
-        var smiles = JSON.parse(localStorage.getItem('EVBE_Smiles'));
+        var smileyCollection = SmileyCollection.deserialize('EVBE_Smiles');
         $(importCode.split('{s_n}')).each(function() {
            l = this.split('{s_x}');
            if(!EVBE.smileyExist(l[0], l[1])) {
-                smiles.push([l[0], l[1]]);
+                smileyCollection.smilies.push(new Smiley(l[0], l[1], l[2]));
             }
         });
         $('#EVBE_Import_Container').val('');
-        localStorage.setItem('EVBE_Smiles', JSON.stringify(smiles));
+        console.log(smileyCollection.smilies);
+        smileyCollection.serialize('EVBE_Smiles');
         EVBE.clearSmilies();
         EVBE.appendSmiles(false);
     },
     generateBackup: function() {
-        localStorage.setItem('EVBE_Backup', localStorage.getItem('EVBE_Smiles'));
+        var smileyCollection = SmileyCollection.deserialize('EVBE_Smiles');
+        smileyCollection.serialize('EVBE_Backup');
+
         $('#EVBE_Backup_Control').remove();
         $('#EVBE_ImportExport_Control').after('<fieldset class="fieldset" style="margin:3px 0px 0px 0px;" id="EVBE_Backup_Control">' +
         '<legend><i class="fa fa-exchange"></i> Backups</legend>' +
@@ -182,9 +198,35 @@ var EVBE = {
         '</fieldset>');
     },
     restore: function() {
-        localStorage.setItem('EVBE_Smiles', localStorage.getItem('EVBE_Backup'));
-        
+        var smileyCollection = SmileyCollection.deserialize('EVBE_Backup');
+        smileyCollection.serialize('EVBE_Smiles');
+
         EVBE.clearSmilies();
         EVBE.appendSmiles(false);
+    }, 
+    // place hooks required for detecting smiley triggers
+    placeHooks: function() 
+    {
+        var validInputElements = $("textarea, .bginput");
+
+        // event is raised every time the content of the valid input element is changed
+        $(validInputElements).bind('input propertychange', function()
+        {
+            var content = $(this).val();
+            var smileyCollection = SmileyCollection.deserialize("EVBE_Smiles");
+
+            element = this;
+            smileyCollection.smilies.forEach(function(smiley)
+            { 
+                if(smiley.trigger)
+                {
+                    if(content.indexOf(smiley.trigger) > -1)
+                    {
+                        // insert an extra whitespace for productivity ;)
+                        $(element).val(content.replace(smiley.trigger, EVBE.getBBCode(smiley) + " ")); 
+                    }
+                }
+            })  
+        });
     }
 };

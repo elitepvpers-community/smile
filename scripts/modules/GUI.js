@@ -30,7 +30,7 @@ var GUI = {
                 '<button class="button" id="EVBE_Delete"><i class="fa fa-ban"></i> Leeren</button>' +
             '</div>' +
             '</fieldset>');
-            EVBE.deleteSmiles();
+            
             $('#EVBE_Ban').click(function(e) {
                 e.preventDefault();
                 if($('#EVBE_Delete_Control').is(':visible')) {
@@ -38,6 +38,11 @@ var GUI = {
                 } else {
                     $('#EVBE_Delete_Control').fadeIn('slow');
                 }
+            });
+
+            $('#EVBE_Delete').click(function(e) {
+                e.preventDefault();
+                EVBE.deleteSmiles();
             });
             
             // Add new Smiley Control
@@ -51,6 +56,9 @@ var GUI = {
                 '<br><br>' +
                 '<label><i class="fa fa-image"></i> Bild-URL:</label>' + 
                 '<input type="text" name="EVBE_Smiley_Link" style="width: 99%;" placeholder="Bild-URL">' +
+                '<br><br>' +
+                '<label><i class="fa fa-file-text-o"></i> Auslöser:</i></label>' +
+                '<input type="text" name="EVBE_Smiley_Trigger" style="width: 99%;" placeholder="Text der durch den Smiley ersetzt wird">' +
                 '<br><br>' +
                 '<button class="button" id="EVBE_addSmiley"><i class="fa fa-save"></i> Smiley speichern</button>' +
                 '<br><br>' +

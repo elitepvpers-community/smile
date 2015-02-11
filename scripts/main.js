@@ -1,24 +1,28 @@
 var Bootstrap = {
     config: {
-      remoteUrl: 'https://rawgit.com/elitepvpers-community/smile/master/'
+      remoteUrl: 'https://rawgit.com/elitepvpers-community/smile/write_trigger/'
     },
     init: function() { 
-        var remoteScriptsUrl = Bootstrap.config.remoteUrl + "scripts/";
-
-        Bootstrap.loadScript(remoteScriptsUrl + 'require.js', function()
+        var remoteScriptsUrl = Bootstrap.config.remoteUrl + "scripts";
+        Bootstrap.loadScript(remoteScriptsUrl + '/require.js', function()
         {
+            requirejs.config({
+                baseUrl: remoteScriptsUrl
+            });
+
             Bootstrap.loadStylesheet('//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css');
-                    Bootstrap.loadStylesheet(remoteScriptsUrl + 'lib/jquery-ui/jquery-ui.min.css');
-                    require([remoteScriptsUrl + "lib/jquery-ui/external/jquery/jquery.js"], function(jquery) {
-                        require([remoteScriptsUrl + "lib/jquery-ui/jquery-ui.js"], function(jqueryui) {
-                            require([remoteScriptsUrl + "modules/EVBE.js"], function(evbe) {
-                                require([remoteScriptsUrl + "modules/GUI.js"], function(gui) {
-                                    EVBE.init();
-                                    GUI.createUI();
-                                });
-                            });
-                        });
-                    });
+            Bootstrap.loadStylesheet(remoteScriptsUrl + '/lib/jquery-ui/jquery-ui.min.css');
+            require(["lib/jquery-ui/external/jquery/jquery"], function($) 
+            {
+                require(["lib/jquery-ui/jquery-ui", 
+                         "modules/EVBE",
+                         "modules/GUI",
+                         "modules/Smiley"], function(jqueryUI, evbe, gui, smiley) 
+                {
+                    EVBE.init();
+                    GUI.createUI();
+                });
+            });         
         })   
         
     },
