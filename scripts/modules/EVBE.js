@@ -225,14 +225,10 @@ var EVBE = {
             { 
                 if(smiley.trigger)
                 {
-                    pattern = "(?:(?:\\S+\\s+)|(?:^\\s*))+(" + RegExp.escape(smiley.trigger) + ")(?:(\\s+\\S+)|(?:\\s*$))+";
-                    re = new RegExp(pattern, "g");
-                    matches = re.exec(content)
-                    if(matches === null) return;
-                    if(matches.length < 2) return;
-
-                    // insert an extra whitespace for productivity ;)
-                    $(element).val(content.replace(matches[1], EVBE.getBBCode(smiley) + " ")); 
+                    $(element).val(content.replace(new RegExp("(?:\\s+|^)+(" + smiley.trigger + ")(?:\\s+|$)"), function(full, trigger)
+                    { 
+                        return " " + EVBE.getBBCode(smiley) + " ";
+                    }));
                 }
             })  
         });
