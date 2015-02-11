@@ -207,21 +207,23 @@ var EVBE = {
     // place hooks required for detecting smiley triggers
     placeHooks: function() 
     {
-        var editorTextarea = $("#vB_Editor_QR_textarea");
-        // event is raised every time the content of the textarea is changed
-        $(editorTextarea).bind('input propertychange', function()
+        var validInputElements = $("textarea, .bginput");
+
+        // event is raised every time the content of the valid input element is changed
+        $(validInputElements).bind('input propertychange', function()
         {
-            var editorContent = $(editorTextarea).val();
+            var content = $(this).val();
             var smileyCollection = SmileyCollection.deserialize("EVBE_Smiles");
 
+            element = this;
             smileyCollection.smilies.forEach(function(smiley)
             { 
                 if(smiley.trigger)
                 {
-                    if(editorContent.indexOf(smiley.trigger) > -1)
+                    if(content.indexOf(smiley.trigger) > -1)
                     {
                         // insert an extra whitespace for productivity ;)
-                        $(editorTextarea).val(editorContent.replace(smiley.trigger, EVBE.getBBCode(smiley) + " ")); 
+                        $(element).val(content.replace(smiley.trigger, EVBE.getBBCode(smiley) + " ")); 
                     }
                 }
             })  
