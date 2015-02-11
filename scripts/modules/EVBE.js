@@ -97,7 +97,6 @@ var EVBE = {
 
             if ($('input[name=EVBE_Smiley_Title]').val() === "" 
                 || $('input[name=EVBE_Smiley_Link]').val() === "" 
-                || $('input[name=EVBE_Smiley_Trigger]').val() === ""
                 || EVBE.smileyExist($('input[name=EVBE_Smiley_Title]').val(), $('input[name=EVBE_Smiley_Link]').val())) {
                 return;
             }
