@@ -217,7 +217,6 @@ var EVBE = {
         // event is raised every time the content of the valid input element is changed
         $(validInputElements).bind('input propertychange', function()
         {
-            var content = $(this).val();
             var smileyCollection = SmileyCollection.deserialize("EVBE_Smiles");
 
             element = this;
@@ -225,10 +224,12 @@ var EVBE = {
             { 
                 if(smiley.trigger)
                 {
-                    $(element).val(content.replace(new RegExp("(?:\\s+|^)+(" + smiley.trigger + ")(?:\\s+|$)"), function(full, trigger)
+                    var replacedContent = $(element).val().replace(new RegExp("(?:\\s+|^)+(" + smiley.trigger + ")(?:\\s+|$)"), function(full, trigger)
                     { 
                         return " " + EVBE.getBBCode(smiley) + " ";
-                    }));
+                    })
+
+                    $(element).val(replacedContent);
                 }
             })  
         });
