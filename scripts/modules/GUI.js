@@ -22,7 +22,25 @@ var GUI = {
             
             $('#EVBE_Smileys').tooltip();
             
+            // Delete Smileys Control
+            $('#EVBE_Smileys_Control').after('<fieldset class="fieldset" style="margin:3px 0px 0px 0px; display: none;" id="EVBE_Delete_Control">' +
+            '<legend><i class="fa fa-ban"></i> Smileys leeren</legend>' +
+            '<div style="padding:3px">' +
+                'Bist Du sicher, dass Du Deine Smileys leeren m&ouml;chtest? <br><br>' +
+                '<button class="button" id="EVBE_Delete"><i class="fa fa-ban"></i> Leeren</button>' +
+            '</div>' +
+            '</fieldset>');
+            
             $('#EVBE_Ban').click(function(e) {
+                e.preventDefault();
+                if($('#EVBE_Delete_Control').is(':visible')) {
+                    $('#EVBE_Delete_Control').fadeOut('slow');
+                } else {
+                    $('#EVBE_Delete_Control').fadeIn('slow');
+                }
+            });
+
+            $('#EVBE_Delete').click(function(e) {
                 e.preventDefault();
                 EVBE.deleteSmiles();
             });
