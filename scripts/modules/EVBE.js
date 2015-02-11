@@ -224,7 +224,7 @@ var EVBE = {
             { 
                 if(smiley.trigger)
                 {
-                    var replacedContent = $(element).val().replace(new RegExp("(\\s+|^)+(" + smiley.trigger + ")(\\s+|$)"), function(full, before, after)
+                    var replacedContent = $(element).val().replace(new RegExp("(\\s+|^)+(" + smiley.trigger + ")(\\s+|$)"), function(full, before, trigger, after)
                     { 
                         return before + EVBE.getBBCode(smiley) + after;
                     })
