@@ -49,10 +49,10 @@ var EVBE = {
         $(smileyCollection.smilies).each(function() {
             if (!editmode) {
                 $('#EVBE_Edit').removeClass('editmode');
-                $('#EVBE_Smileys').append('<div style="display: inline-block;"><img src="' + this.url + '" title="' + this.title + '" height="32px" width="32px" style="padding-right: 10px; cursor: pointer;" onclick="EVBE.insertSmiley(\'' + this.url + '\', $(\'textarea[name=message]\'));"></div>');
+                $('#EVBE_Smileys').append('<div style="display: inline-block;"><img src="' + this.url + '" title="' + this.title + (this.trigger ? ' (' + this.trigger + ')' : '') + '" height="32px" width="32px" style="padding-right: 10px; cursor: pointer;" onclick="EVBE.insertSmiley(\'' + this.url + '\', $(\'textarea[name=message]\'));"></div>');
             } else {
                 $('#EVBE_Edit').addClass('editmode');
-                $('#EVBE_Smileys').append('<div style="display: inline-block;"><div style="position: relative; z-index: 1; left: 1px; color: red; cursor: pointer;" onclick="EVBE.deleteSmile(\'' + this.url + '\');"><i class="fa fa-ban"></i></div><img src="' + this.url + '" title="' + this.title + '" height="32px" width="32px" style="top: -11px; position: relative; padding-right: 10px;"></div>');
+                $('#EVBE_Smileys').append('<div style="display: inline-block;"><div style="position: relative; z-index: 1; left: 1px; color: red; cursor: pointer;" onclick="EVBE.deleteSmile(\'' + this.url + '\');"><i class="fa fa-ban"></i></div><img src="' + this.url + '" title="' + this.title + (this.trigger ? ' (' + this.trigger + ')' : '') + '" height="32px" width="32px" style="top: -11px; position: relative; padding-right: 10px;"></div>');
             }
         });
         return;
