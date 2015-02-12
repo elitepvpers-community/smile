@@ -30,7 +30,15 @@ var Bootstrap = {
                       exports: "evbe",
                       deps: ["smiley"]
                     }
-                }
+                },
+                map: {
+                  "*": {
+                    "jquery": "noconflict"
+                  },
+                  "noconflict": {
+                    "jquery": "jquery"
+                  }
+              }
             });
 
             Bootstrap.loadStylesheet('//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css');
