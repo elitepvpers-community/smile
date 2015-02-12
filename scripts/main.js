@@ -16,9 +16,6 @@ var Bootstrap = {
                   smiley: "modules/Smiley"
                 },
                 shim: {
-                    jquery: {
-                      exports: "$"
-                    },
                     jqueryui: {
                       deps: ["jquery"]
                     },
@@ -30,24 +27,20 @@ var Bootstrap = {
                       exports: "evbe",
                       deps: ["smiley"]
                     }
-                },
-                map: {
-                  "*": {
-                    "jquery": "noconflict"
-                  },
-                  "noconflict": {
-                    "jquery": "jquery"
-                  }
-              }
+                }
+            });
+
+            define('jquery-private', ['jquery'], function (jq) {
+                return jq.noConflict( true );
             });
 
             Bootstrap.loadStylesheet('//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css');
             Bootstrap.loadStylesheet(remoteScriptsUrl + '/lib/jquery-ui/jquery-ui.min.css');
    
-            require(["evbe", "gui"], function(evbe, gui) 
+            require(["jquery-private", "evbe", "gui"], function(jq, evbe, gui) 
             {
                 EVBE.init();
-                GUI.createUI();
+                new GUI(jq).create()
             });
         })   
         
