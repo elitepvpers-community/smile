@@ -5,7 +5,7 @@ function GUI(jQuery)
     {
         var settings = JSON.parse(localStorage.getItem('EVBE_Settings')); // settings var
         
-        // This detects the QR (quick reply) with the first selector editor or the extended edtior with the second one,
+        // This detects the QR (quick reply) editor with the first selector or the extended edtior with the second one,
         // both seperated by commas. Then inserts the main interface below the last fieldset (if any)
         editorareaEndnode = $('#vB_Editor_001')
                             .parent()
@@ -14,7 +14,7 @@ function GUI(jQuery)
                             .parent()
                             .children('fieldset.fieldset:last')
                             .add("#vB_Editor_QR");
-                            
+
         $(editorareaEndnode)
             .after( '<fieldset class="fieldset" style="margin:3px 0px 0px 0px;' + (!settings.showSmileyControl ? 'display: none;' : '') + '" id="EVBE_Smileys_Control">' +
                     '<legend><i class="fa fa-smile-o"></i> Smileys</legend>' +
