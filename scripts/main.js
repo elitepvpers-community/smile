@@ -14,8 +14,7 @@ var Bootstrap = {
             Bootstrap.loadStylesheet(remoteScriptsUrl + '/lib/jquery-ui/jquery-ui.min.css');
             require(["lib/jquery-ui/external/jquery/jquery.min"], function($) 
             {
-                require(["lib/jquery-ui/jquery-ui", 
-                         "modules/EVBE",
+                require(["modules/EVBE",
                          "modules/GUI",
                          "modules/Smiley"], function(jqueryUI, evbe, gui, smiley) 
                 {
