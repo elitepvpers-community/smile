@@ -11,7 +11,7 @@ var Bootstrap = {
             });
 
             Bootstrap.loadStylesheet('//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css');
-            Bootstrap.loadStylesheet(remoteScriptsUrl + '/lib/jquery-ui/jquery-ui.min.css');
+            //Bootstrap.loadStylesheet(remoteScriptsUrl + '/lib/jquery-ui/jquery-ui.min.css');
             require(["lib/jquery-ui/external/jquery/jquery.min"], function($) 
             {
                 require(["modules/EVBE",
