@@ -7,8 +7,15 @@ function GUI(jQuery)
         
         // This detects the QR (quick reply) with the first selector editor or the extended edtior with the second one,
         // both seperated by commas. Then inserts the main interface below the last fieldset (if any)
-        $('#vB_Editor_QR, td.panelsurround div.panel div:first fieldset.fieldset:last')
-            .first() // make sure to insert the control just once since vB_Editor_QR elements may also (not always) be located with the second selector
+        editorareaEndnode = $('#vB_Editor_001')
+                            .parent()
+                            .parent()
+                            .parent()
+                            .parent()
+                            .children('fieldset.fieldset:last')
+                            .add("#vB_Editor_QR");
+                            
+        $(editorareaEndnode)
             .after( '<fieldset class="fieldset" style="margin:3px 0px 0px 0px;' + (!settings.showSmileyControl ? 'display: none;' : '') + '" id="EVBE_Smileys_Control">' +
                     '<legend><i class="fa fa-smile-o"></i> Smileys</legend>' +
                     '<div style="padding:3px; overflow-y: scroll; height: 30px;" id="EVBE_Smileys">' +
