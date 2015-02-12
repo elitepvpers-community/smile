@@ -7,16 +7,39 @@ var Bootstrap = {
         Bootstrap.loadScript(remoteScriptsUrl + '/require.js', function()
         {
             requirejs.config({
-                baseUrl: remoteScriptsUrl
+                baseUrl: remoteScriptsUrl,
+                paths: {
+                  app: "app",
+                  jquery: "lib/jquery-ui/external/jquery/jquery.min",
+                  jqueryui: "lib/jquery-ui/jquery-ui.min",
+                  evbe: "modules/EVBE",
+                  gui: "modules/GUI",
+                  smiley: "modules/Smiley"
+                },
+                shim: {
+                    jqueryui: {
+                      exports: "$",
+                      deps: ["jquery"]
+                    },
+                    gui: {
+                      exports: "gui",
+                      deps: ["jqueryui", "smiley"]
+                    },
+                    evbe: {
+                      exports: "evbe",
+                      deps: ["smiley"]
+                    },
+                    app: {
+                      exports: "app",
+                      deps: ["gui", "evbe"]
+                    }
+                }
             });
 
             Bootstrap.loadStylesheet('//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css');
             Bootstrap.loadStylesheet(remoteScriptsUrl + '/lib/jquery-ui/jquery-ui.min.css');
    
-            require(["lib/jquery-ui/external/jquery/jquery.min",
-                     "modules/EVBE",
-                     "modules/GUI",
-                     "modules/Smiley"], function($, evbe, gui, smiley) 
+            require(["app"], function(app) 
             {
                 EVBE.init();
                 GUI.createUI();
