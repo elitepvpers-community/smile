@@ -20,7 +20,7 @@ var GUI = {
             EVBE.launchEditMode();
             EVBE.appendSmiles(false);
             
-            $jQ('#EVBE_Smileys').tooltip();
+            $('#EVBE_Smileys').tooltip();
             
             // Delete Smileys Control
             $('#EVBE_Smileys_Control').after('<fieldset class="fieldset" style="margin:3px 0px 0px 0px; display: none;" id="EVBE_Delete_Control">' +
