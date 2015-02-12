@@ -18,7 +18,7 @@ var Bootstrap = {
                 shim: {
                     jquery: {
                       exports: "$jQ",
-                    }
+                    },
                     jqueryui: {
                       deps: ["jquery"]
                     },
