@@ -1,5 +1,8 @@
-var GUI = {
-    createUI: function() {
+function GUI(jQuery)
+{
+    this.jQuery = jQuery;
+    this.create = function() 
+    {
         var settings = JSON.parse(localStorage.getItem('EVBE_Settings')); // settings var
         
         // MAIN CONTROL
@@ -20,7 +23,7 @@ var GUI = {
             EVBE.launchEditMode();
             EVBE.appendSmiles(false);
             
-            $('#EVBE_Smileys').tooltip();
+            this.jQuery('#EVBE_Smileys').tooltip();
             
             // Delete Smileys Control
             $('#EVBE_Smileys_Control').after('<fieldset class="fieldset" style="margin:3px 0px 0px 0px; display: none;" id="EVBE_Delete_Control">' +
@@ -129,4 +132,4 @@ var GUI = {
                 EVBE.showSmileyControl()
             }
     }
-};
+}
