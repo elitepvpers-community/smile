@@ -20,6 +20,7 @@ var Bootstrap = {
                       exports: "$jQ",
                     },
                     jqueryui: {
+                      exports: "$jQ",
                       deps: ["jquery"]
                     },
                     gui: {
