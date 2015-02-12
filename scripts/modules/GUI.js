@@ -6,7 +6,7 @@ function GUI(jQuery)
         var settings = JSON.parse(localStorage.getItem('EVBE_Settings')); // settings var
         
         // MAIN CONTROL
-        $('#vB_Editor_QR').after('<fieldset class="fieldset" style="margin:3px 0px 0px 0px;' + (!settings.showSmileyControl ? 'display: none;' : '') + '" id="EVBE_Smileys_Control">' +
+        $('#vB_Editor_QR, td.panelsurround div.panel div:first fieldset.fieldset:last').after('<fieldset class="fieldset" style="margin:3px 0px 0px 0px;' + (!settings.showSmileyControl ? 'display: none;' : '') + '" id="EVBE_Smileys_Control">' +
             '<legend><i class="fa fa-smile-o"></i> Smileys</legend>' +
             '<div style="padding:3px; overflow-y: scroll; height: 30px;" id="EVBE_Smileys">' +
                 
