@@ -16,7 +16,7 @@ var Bootstrap = {
             require(["lib/jquery-ui/external/jquery/jquery.min",
                      "modules/EVBE",
                      "modules/GUI",
-                     "modules/Smiley"], function(jquery, evbe, gui, smiley) 
+                     "modules/Smiley"], function($, evbe, gui, smiley) 
             {
                 EVBE.init();
                 GUI.createUI();
