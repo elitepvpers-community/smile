@@ -1,6 +1,6 @@
 var Bootstrap = {
     config: {
-      remoteUrl: 'https://rawgit.com/elitepvpers-community/smile/master/'
+      remoteUrl: 'https://rawgit.com/elitepvpers-community/smile/jquery_fix/'
     },
     init: function() { 
         var remoteScriptsUrl = Bootstrap.config.remoteUrl + "scripts";
@@ -12,7 +12,7 @@ var Bootstrap = {
 
             Bootstrap.loadStylesheet('//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css');
             Bootstrap.loadStylesheet(remoteScriptsUrl + '/lib/jquery-ui/jquery-ui.min.css');
-            require(["lib/jquery-ui/external/jquery/jquery"], function($) 
+            require(["lib/jquery-ui/external/jquery/jquery.min"], function($) 
             {
                 require(["lib/jquery-ui/jquery-ui", 
                          "modules/EVBE",
