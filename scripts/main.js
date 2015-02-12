@@ -11,17 +11,16 @@ var Bootstrap = {
             });
 
             Bootstrap.loadStylesheet('//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css');
-            //Bootstrap.loadStylesheet(remoteScriptsUrl + '/lib/jquery-ui/jquery-ui.min.css');
-            require(["lib/jquery-ui/external/jquery/jquery.min"], function($) 
+            Bootstrap.loadStylesheet(remoteScriptsUrl + '/lib/jquery-ui/jquery-ui.min.css');
+   
+            require(["lib/jquery-ui/external/jquery/jquery.min",
+                     "modules/EVBE",
+                     "modules/GUI",
+                     "modules/Smiley"], function(jquery, evbe, gui, smiley) 
             {
-                require(["modules/EVBE",
-                         "modules/GUI",
-                         "modules/Smiley"], function(jqueryUI, evbe, gui, smiley) 
-                {
-                    EVBE.init();
-                    GUI.createUI();
-                });
-            });         
+                EVBE.init();
+                GUI.createUI();
+            });
         })   
         
     },
