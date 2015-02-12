@@ -9,7 +9,6 @@ var Bootstrap = {
             requirejs.config({
                 baseUrl: remoteScriptsUrl,
                 paths: {
-                  app: "app",
                   jquery: "lib/jquery-ui/external/jquery/jquery.min",
                   jqueryui: "lib/jquery-ui/jquery-ui.min",
                   evbe: "modules/EVBE",
@@ -28,10 +27,6 @@ var Bootstrap = {
                     evbe: {
                       exports: "evbe",
                       deps: ["smiley"]
-                    },
-                    app: {
-                      exports: "app",
-                      deps: ["gui", "evbe"]
                     }
                 }
             });
@@ -39,7 +34,7 @@ var Bootstrap = {
             Bootstrap.loadStylesheet('//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css');
             Bootstrap.loadStylesheet(remoteScriptsUrl + '/lib/jquery-ui/jquery-ui.min.css');
    
-            require(["app"], function(app) 
+            require(["evbe", "gui"], function(evbe, gui) 
             {
                 EVBE.init();
                 GUI.createUI();
