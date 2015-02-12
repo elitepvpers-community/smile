@@ -1,6 +1,6 @@
 var Bootstrap = {
     config: {
-      remoteUrl: 'https://rawgit.com/elitepvpers-community/smile/master/'
+      remoteUrl: 'https://rawgit.com/elitepvpers-community/smile/extended_editor/'
     },
     init: function() { 
         var remoteScriptsUrl = Bootstrap.config.remoteUrl + "scripts";
