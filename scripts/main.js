@@ -16,8 +16,10 @@ var Bootstrap = {
                   smiley: "modules/Smiley"
                 },
                 shim: {
-                    jqueryui: {
+                    jquery: {
                       exports: "$jQ",
+                    }
+                    jqueryui: {
                       deps: ["jquery"]
                     },
                     gui: {
