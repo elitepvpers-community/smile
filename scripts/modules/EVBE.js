@@ -182,7 +182,6 @@ var EVBE = {
             }
         });
         $('#EVBE_Import_Container').val('');
-        console.log(smileyCollection.smilies);
         smileyCollection.serialize('EVBE_Smiles');
         EVBE.clearSmilies();
         EVBE.appendSmiles(false);
