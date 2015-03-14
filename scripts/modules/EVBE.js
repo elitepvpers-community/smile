@@ -207,10 +207,13 @@ var EVBE = {
         EVBE.clearSmilies();
         EVBE.appendSmiles(false);
     }, 
-    // place hooks required for detecting smiley triggers
+    // place hooks required for detecting smiley triggers within the editor textareas
     placeHooks: function() 
     {
-        var validInputElements = $("textarea, .bginput");
+        // vB_Editor_QE_1_textarea - quick edit editor
+        // vB_Editor_QR_textarea - quick reply editor
+        // vB_Editor_001_textarea - extended editor
+        var validInputElements = $("#vB_Editor_QR_textarea, #vB_Editor_001_textarea, #vB_Editor_QE_1_textarea");
 
         // event is raised every time the content of the valid input element is changed
         $(validInputElements).bind('input propertychange', function()

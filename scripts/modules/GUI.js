@@ -5,8 +5,8 @@ function GUI(jQuery)
     {
         var settings = JSON.parse(localStorage.getItem('EVBE_Settings')); // settings var
         
-        // This detects the QR (quick reply) editor with the first selector or the extended edtior with the second one,
-        // both seperated by commas. Then inserts the main interface below the last fieldset (if any)
+        // This detects the QR (quick reply) editor and the extended editor,
+        // then inserts the main interface below the last fieldset (if any)
         editorareaEndnode = $('#vB_Editor_001')
                             .parent()
                             .parent()
